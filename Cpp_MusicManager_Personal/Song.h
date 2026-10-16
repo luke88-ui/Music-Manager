@@ -52,13 +52,33 @@ public:
 	{
 		stringstream sout;
 		sout << "Track details: " << endl;
-		sout << " Song [Track title: " << track << ", Artist: " << artist << "]" << endl;
+		sout << "Song[Track title : " << track << ", Artist : " << artist << "]" << endl;
 		sout << "Stored in:  " << this;
 
 
 		return sout.str();
 	}
 
+	void titleCase(string& artist) 
+	{
+
+		if (artist.empty())
+		{ return;}
+		artist.at(0) = toupper(artist.at(0));
+
+		for (int i = 1; i < artist.length(); i++)
+		{
+			if (artist[i - 1] == ' ')
+			{
+			artist[i] = toupper(artist[i]);
+			}
+			else
+			{
+				artist[i] = tolower(artist[i]);
+			}
+		}
+
+	}
 
 	//experiments
 };
