@@ -1,6 +1,8 @@
 // Cpp_MusicManager_Personal.cpp 
 
 #include <iostream>
+#include <vector>
+
 
 using namespace std;
 
