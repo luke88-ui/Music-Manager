@@ -7,5 +7,8 @@ using namespace std;
 
 int main()
 {
-    cout << "Music Manager 2026!\n";
+    cout << "Welcome to the music hub!" << endl;
+
+
+    cout << "Music Manager 2026. \n";
 }

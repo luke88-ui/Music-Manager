@@ -178,6 +178,9 @@
   <ItemGroup>
     <ClCompile Include="Cpp_MusicManager_Personal.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Song.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
