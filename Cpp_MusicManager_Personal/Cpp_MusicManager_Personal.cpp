@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    cout << "Welcome to the music hub! \n" << endl;
+    cout << "Welcome to the music hub! Find a song! \n" << endl;
 
 
     cout << "Music Manager 2026. \n";
