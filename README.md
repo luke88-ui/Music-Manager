@@ -1,1 +1,1 @@
-# Cpp_MusicManager_Personal
+Music Manager
