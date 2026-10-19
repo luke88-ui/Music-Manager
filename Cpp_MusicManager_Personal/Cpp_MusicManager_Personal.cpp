@@ -24,6 +24,9 @@ bool findSong(const vector<Song>& songs, string& key) //pass our Vector and our 
 		{
 			match = true;
 			return true;
+			
+
+
 
 		}
 	}
@@ -43,6 +46,7 @@ int main()
 	string artist;
 	string answer;
 	string answer2;
+	string answer3;
 	string searchTitle;
 
 	vector<Song> songs;
@@ -53,7 +57,7 @@ int main()
 	{
 	
 
-		 cout << "Please enter your track and artist. "<< endl;
+		 cout << "Please enter your track. "<< endl;
 		 getline(cin, song);
 		 cout << "Please enter your artist with that track." << endl ;
 		 getline(cin, artist);
@@ -67,9 +71,7 @@ int main()
 
 		
 	}
-	 cout << endl;
-	 cout << "All songs in your database: \n" << endl;
-	 displaySongs(songs);
+	
 
 	 cout << "Would you like to confirm the existence for an existing song in the database? ";
 	 getline(cin, answer2);
@@ -80,12 +82,12 @@ int main()
 		 getline(cin, searchTitle);
 		 if (findSong(songs, searchTitle))
 		 {
-			 cout << "Song found! " << endl;
+			 cout << "Song found! \n " << endl;
 
 		 }
 		 else
 		 {
-			 cout << "Requested song was not found! " << endl;
+			 cout << "Requested song was not found! \n" << endl;
 
 		 }
 		 cout << "Find another song? " << endl;
@@ -94,6 +96,15 @@ int main()
 	
 	 }
 
+	 cout << "Would you like to display all songs in your database? " << endl;
+	 getline(cin, answer3);
+	 if (answer3 == "Yes" || answer3 == "yes" || answer3 == "YES" || answer3 == "Y" || answer3 == "y")
+	 {
+		
+		 cout << endl;
+		 cout << "All songs in your database: \n" << endl;
+		 displaySongs(songs);
+	 }
 
 	  cout << "Music Manager 2026. \n";
 }
