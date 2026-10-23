@@ -51,6 +51,7 @@ public:
 	string toString() const
 	{
 		stringstream sout;
+		sout << endl;
 		sout << "Track details: " << endl;
 		sout << "Song[Track title : " << track << ", Artist : " << artist << "]" << endl;
 		sout << "Stored in:  " << this;
