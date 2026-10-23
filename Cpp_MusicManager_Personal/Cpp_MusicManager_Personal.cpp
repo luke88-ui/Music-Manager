@@ -33,16 +33,20 @@ bool findSong(const vector<Song>& songs, string& key) //pass our Vector and our 
 
 }
 
-bool deleteSong(const vector<Song>& songs, string& key)
+bool deleteSong(vector<Song>& songs, string& key)
 {
-	bool match = true;
+	bool match = false;
 	for (auto it = songs.begin(); it != songs.end(); it++)
 	{
-		if (*it == key)
+		if ((*it).getTrack() == key)
 		{
+			it = songs.erase(it);
+			match = true;
+			return true;
 
 		}
 	}
+	return false;
 
 
 	
@@ -121,20 +125,34 @@ int main()
 		
 		 cout << endl;
 		 cout << "All songs in your database: \n" << endl;
-		 displaySongs(songs);
+		
 	 }
 
 	 cout << "Would you like to delete any songs in your local database? Press any number to proceed, [-1 to end] " << endl;
-	 if (answer4 != -1)
+	 cin >> answer4;
+	 cin.ignore();
+	 while(answer4 != -1)
 	 {
+		
+
 		 cout << "Enter the song title you wish to delete: " << endl;
 		 getline(cin, deleteTitle);
 		 if (deleteSong(songs, deleteTitle))
 		 {
 			 cout << "Song has been deleted. New database shown below" << endl;
-
+			 displaySongs(songs);
 
 		 }
+		 else
+		 {
+			 cout << "Requested song to be deleted was not found! " << endl;
+
+		 }
+
+		 cout << "Try again? ";
+		 cin >> answer4;
+		 cin.ignore();
+
 
 	 }
 		
