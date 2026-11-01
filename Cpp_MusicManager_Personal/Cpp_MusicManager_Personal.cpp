@@ -5,14 +5,20 @@
 #include <string>
 #include "Song.h"
 #include <fstream>
+#include <map>
 using namespace std;
 
 
+
+// Shorthand type aliases -------------------------------------------------------
+typedef map<string, size_t> DBmap;
+
+//utility functions
 void displaySongs(const vector<Song>& songs)
 {
 	for (int i = 0; i < songs.size(); i++)
 	{
-		cout << songs[i].toString() << endl;
+		cout << songs[i] << endl;
 	}
 }
 
@@ -24,7 +30,7 @@ bool findSong(const vector<Song>& songs, string& key) //pass our Vector and our 
 		if (songs[i].getTrack() == key)
 		{
 			match = true;
-			cout << songs[i].toString() << endl;
+			cout << songs[i] << endl;
 			return true;
 		}
 	}
@@ -52,110 +58,104 @@ bool deleteSong(vector<Song>& songs, string& key)
 	
 }
 
+/////////////////////////////////////////////////////////////////
 
-int main()
-{
-    cout << "Welcome to the music hub! Find a song! \n" << endl;
+void editPersonalSongs() {
+    string answer;
+    cout << "Would you like to add or delete track to your playlist? 1 to add, 0 to delete [-1 to end]\n";
+    getline(cin, answer);
+}
 
-	cout << "Would you like to add a track to your playlist? Enter Y/Yes to continue or any key to exit! " << endl;
-	
-	string song;
-	string artist;
-	string answer;
-	string answer2;
-	string answer3;
-	int answer4;
-	string searchTitle;
-	string deleteTitle;
+void searchPersonal() {
+    string answer;
+    cout << "Would you like to confirm the existence for an existing song in the database? [-1 to end] ";
+    getline(cin, answer);
+}
 
+void searchGlobal() {
+    cout << "Test" << endl;
+}
 
-	vector<Song> songs;
+void displayPersonalSongs() {
+    cout << "Test" << endl;
+}
 
-	getline(cin, answer);
-	
-	 while (answer == "Yes" || answer == "yes" || answer == "YES" || answer == "Y" || answer == "y")
-	{
-	
+void displaySongDatabase(vector<Song>& db, string caption = "") {
+    cout << endl << caption << "  Size: " << db.size() << endl;
+    cout << string(50, '-') << endl;
+    for (const auto& s : db)
+        cout << s << endl;
 
-		 cout << "Please enter your track. "<< endl;
-		 getline(cin, song);
-		 cout << "Please enter your artist with that track." << endl ;
-		 getline(cin, artist);
+}
 
-		 songs.emplace_back(song, artist); //When accepting multiple parameters, this is ideal.
+//------------------------------------------------------
 
-		 cout << songs.back().toString() << endl;
+void mainHub(vector<Song>& db, DBmap& idMap) {
+    int answer = 0;
 
-		 cout << "Add another track? " << endl;
-		 getline(cin, answer);
+    while (answer != -1) {
+        cout << "\nSelect an action." << endl;
+        cout << "1. Add/Remove from your personal playlist " << endl;
+        cout << "2. Search for a song in your playlist " << endl;
+        cout << "3. Search for a song in the inputted file " << endl;
+        cout << "4. Display all songs in your playlist " << endl;
+        cout << "5. Display all songs in the inputted file " << endl;
+        cout << "-1 to exit the application " << endl;
 
-		
-	}
-	
+        cin >> answer;
+        cin.ignore(); // Clears the newline from the buffer
 
-	 cout << "Would you like to confirm the existence for an existing song in the database? ";
-	 getline(cin, answer2);
-		 
-	 while (answer2 == "Yes" || answer2 == "yes" || answer2 == "YES" || answer2 == "Y" || answer2 == "y")
-	 {
-		 cout << "Enter the song title: " << endl;
-		 getline(cin, searchTitle);
+        if (answer == -1) {
+            break;
+        }
+        else if (answer == 1) {
+            editPersonalSongs();
+        }
+        else if (answer == 2) {
+            searchPersonal();
+        }
+        else if (answer == 3) {
+            searchGlobal();
+        }
+        else if (answer == 4) {
+            displayPersonalSongs();
+        }
+        else if (answer == 5) {
+            displaySongDatabase(db, " Song Database ");
+        }
+        else {
+            cout << "Not a valid number entry. Try again\n";
+        }
+    }
+}
 
-		 if (findSong(songs, searchTitle))
-		 {
-			 cout << "Song found! \n " << endl;
+//----------------------------------------------------------------------------
+int main() {
+    cout << "Enter a song.txt file to begin! With valid id's and comma separation. ";
+    vector<Song> db;
+    DBmap idMap;
 
+    string txtFile;
+    getline(cin, txtFile);
+    string fullPath = "C:/temp/" + txtFile;
+   
+    ifstream infile(fullPath);
+    if (!infile) { cout << "Fatal error - file not found\n"; return 101; }
 
-		 }
-		 else
-		 {
-			 cout << "Requested song was not found! \n" << endl;
+    string t, a, i;
+    Song s;
+    while (getline(infile, i, ',') && getline(infile, t, ',') && getline(infile, a)) {
+        s.setID(stoi(i));
+        s.setTrack(t);
+        s.setArtist(a);
+        db.push_back(s);
+        idMap[i] = db.size() - 1;
+    }
+    infile.close();
 
-		 }
-		 cout << "Find another song? " << endl;
-		 getline(cin, answer2);
+    // Calls mainHub successfully because mainHub is written ABOVE this line!
+    mainHub(db, idMap);
 
-	
-	 }
-
-	 cout << "Would you like to display all songs in your database? " << endl;
-	 getline(cin, answer3);
-	 if (answer3 == "Yes" || answer3 == "yes" || answer3 == "YES" || answer3 == "Y" || answer3 == "y")
-	 {
-		
-		 cout << endl;
-		 cout << "All songs in your database: \n" << endl;
-		
-	 }
-
-	 cout << "Would you like to delete any songs in your local database? Press any number to proceed, [-1 to end] " << endl;
-	 cin >> answer4;
-	 cin.ignore();
-	 while(answer4 != -1)
-	 {
-		
-
-		 cout << "Enter the song title you wish to delete: " << endl;
-		 getline(cin, deleteTitle);
-		 if (deleteSong(songs, deleteTitle))
-		 {
-			 cout << "Song has been deleted. New database shown below" << endl;
-			 displaySongs(songs);
-
-		 }
-		 else
-		 {
-			 cout << "Requested song to be deleted was not found! " << endl;
-
-		 }
-
-		 cout << "Try again? ";
-		 cin >> answer4;
-		 cin.ignore();
-
-
-	 }
-		
-
-	  cout << "Music Manager 2026. \n";
+    cout << "\nMusic Manager 2026. \n";
+    return 0;
 }

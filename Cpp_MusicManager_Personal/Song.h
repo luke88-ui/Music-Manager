@@ -11,67 +11,66 @@ class Song
 {
 private:
 
+	int id;
 	string track;
 	string artist;
 
 
+
+
 public:
 	//mutators
-
-	void setTrack(string trackValue)
+	void setID(int i)
 	{
-		track = trackValue;
+		id = i;
 
 	}
-	void setArtist(string artistValue)
+
+	void setTrack(string t)
 	{
-		artist = artistValue;
+		track = t;
+
+	}
+	void setArtist(string a)
+	{
+		artist = a;
 
 	}
 
 	//accessors
-	string getTrack() const {
-		return track; }
+	int getID() const { return id;  }
+	string getTrack() const { return track;}
 	string getArtist() const
 	{
-		return artist;}
+		return artist;
+	}
 
 	//Constructors
-	Song(string trackValue = "na", string artistValue = "na")
+	Song(int i = 000, string t = "na", string a = "na") : id(i), track(t), artist(a)
 	{
-		setTrack(trackValue);
-		setArtist(artistValue);
-
 	}
 	//Destructor
 	~Song()
-	{}
-
-	//User Methods
-	string toString() const
 	{
-		stringstream sout;
-		sout << endl;
-		sout << "Track details: " << endl;
-		sout << "Song[Track title : " << track << ", Artist : " << artist << "]" << endl;
-		sout << "Stored in:  " << this;
-
-
-		return sout.str();
 	}
 
-	void titleCase(string& artist) 
+	//User Methods
+
+
+	void titleCase(string& artist)
 	{
 
 		if (artist.empty())
-		{ return;}
+		{
+			return;
+		}
 		artist.at(0) = toupper(artist.at(0));
 
 		for (int i = 1; i < artist.length(); i++)
 		{
 			if (artist[i - 1] == ' ')
 			{
-			artist[i] = toupper(artist[i]);
+				artist[i] = toupper(artist[i]);
 			}
 			else
 			{
@@ -81,6 +80,15 @@ public:
 
 	}
 
-	//experiments
-};
+	friend ostream& operator<<(ostream& sout, const Song& s) {
+
+			//sout << endl;
+			//sout << "Track details: " << endl;
+			sout << "ID: " << s.id << ", Song[Track title : " << s.track << ", Artist : " << s.artist << "]" << endl;
+			return sout;
+
+		}
+
+		//experiments
+	};
 
