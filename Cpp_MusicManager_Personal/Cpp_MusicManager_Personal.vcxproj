@@ -179,6 +179,7 @@
     <ClCompile Include="Cpp_MusicManager_Personal.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Song.h" />
   </ItemGroup>

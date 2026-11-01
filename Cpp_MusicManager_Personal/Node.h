@@ -24,7 +24,8 @@ struct Node
 	//show node
 	friend ostream& operator << (ostream& sout, const Node<T>& n)
 	{
-		sout << &n << " Node [ prev: " << n.prev << ", next: " << n.next << ", data: " << n.data << "]";
+		sout << n.data;
+
 		//'this' dont work for this case, so use &n
 		return sout;
 

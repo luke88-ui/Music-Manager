@@ -79,7 +79,6 @@ public:
 		}
 
 	}
-
 	friend ostream& operator<<(ostream& sout, const Song& s) {
 
 			//sout << endl;
@@ -88,6 +87,11 @@ public:
 			return sout;
 
 		}
+
+	bool operator==(const Song& other) const {
+		return this->id == other.id; //compliment to find() function
+	}
+
 
 		//experiments
 	};
